@@ -7,13 +7,19 @@ extern crate shlex;
 extern crate skim;
 extern crate time;
 
+use std::cell::RefCell;
 use derive_builder::Builder;
 use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
+use std::rc::Rc;
+use std::sync::Arc;
+use std::sync::atomic::AtomicUsize;
 
 use clap::{crate_version, App, Arg, ArgMatches};
-use skim::prelude::*;
+use skim::prelude::{AndOrEngineFactory, DefaultSkimSelector, Event, ExactOrFuzzyEngineFactory, RegexEngineFactory, SkimItemReader, SkimItemReaderOption, SkimOptionsBuilder};
+use skim::{CaseMatching, FuzzyAlgorithm, MatchEngineFactory, Skim, SkimItemReceiver, SkimOptions};
+// use skim::prelude::*;
 
 const USAGE: &str = "
 Usage: sk [options]

@@ -2,14 +2,15 @@
 
 use bitflags::bitflags;
 use std::sync::mpsc::{Receiver, Sender};
-use tuikit::key::Key;
+use crossterm::event::KeyCode;
+// use tuikit::key::Key;
 
-pub type EventReceiver = Receiver<(Key, Event)>;
-pub type EventSender = Sender<(Key, Event)>;
+pub type EventReceiver = Receiver<(KeyCode, Event)>;
+pub type EventSender = Sender<(KeyCode, Event)>;
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
 pub enum Event {
-    EvInputKey(Key),
+    EvInputKey(KeyCode),
     EvInputInvalid,
     EvHeartBeat,
 
